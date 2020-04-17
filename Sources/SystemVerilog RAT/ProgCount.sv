@@ -24,7 +24,6 @@ module ProgCount(
     input PC_CLK,
     input PC_RST,
     input PC_LD,
-    input PC_INC,
     input [9:0] PC_DIN,
     output [9:0] PC_COUNT
     );
@@ -37,7 +36,7 @@ module ProgCount(
             r_count <= '0;
         else if (PC_LD == 1'b1)
             r_count <= PC_DIN;
-        else if (PC_INC == 1'b1)
+        else
             r_count <= r_count + 1;
     end
     

@@ -24,7 +24,6 @@ module ControlUnit(
   input CU_C,
   input CU_Z,
   input CU_INT,
-  input CU_RESET,
   input [4:0] CU_OPCODE_HI_5,
   input [1:0] CU_OPCODE_LO_2,
   output logic CU_PC_LD,
@@ -48,25 +47,13 @@ module ControlUnit(
   output logic CU_FLG_SHAD_LD,
   output logic CU_I_SET,
   output logic CU_I_CLR,
-  output logic CU_IO_STRB,
-  output logic CU_RST);
+  output logic CU_IO_STRB);
 
-  // Define State Labels
-  typedef enum {ST_FETCH, ST_EXEC, ST_INIT, ST_INTER} STATES; 
-  STATES NS, PS = ST_INIT;
 
   logic [6:0] s_opcode;
 
   assign s_opcode = {CU_OPCODE_HI_5,CU_OPCODE_LO_2};
 
-  // Synchronous State Changes
-  always_ff @ (posedge CU_CLK)
-    begin
-      if (CU_RESET == 1'b1)
-        PS <= ST_INIT;
-      else
-        PS <= NS;
-    end
 
   always_comb
     begin
@@ -80,38 +67,19 @@ module ControlUnit(
       CU_FLG_C_LD <= 1'b0;  CU_FLG_C_CLR    <= 1'b0;   CU_FLG_C_SET    <= 1'b0;
       CU_FLG_Z_LD <= 1'b0;  CU_FLG_LD_SEL   <= 1'b0;   CU_FLG_SHAD_LD  <= 1'b0;
       CU_I_SET    <= 1'b0;	CU_I_CLR        <= 1'b0;   CU_IO_STRB      <= 1'b0;
-      CU_RST      <= 1'b0;
 
-      case (PS)
-        ST_INIT: begin      // Initialize
-          NS     <= ST_FETCH;
-          CU_RST <= 1'b1;
-        end
 
-        ST_INTER: begin    // Interrupt
-          NS              <= ST_FETCH;
-          CU_FLG_SHAD_LD  <= 1'b1;
-          CU_PC_LD        <= 1'b1;
-          CU_PC_MUX_SEL   <= 2'b10;
-          CU_SP_DECR      <= 1'b1;
-          CU_SCR_WE       <= 1'b1;
-          CU_SCR_DATA_SEL <= 1'b1;
-          CU_SCR_ADDR_SEL <= 2'b11;
-          CU_I_CLR        <= 1'b1;
-        end
-
-        ST_FETCH: begin    // Fetch
-          NS <= ST_EXEC;
-          CU_PC_INC <= 1'b1;
-        end
-
-        ST_EXEC: begin      // Execute
-
-          // Check for Interrupt
-          if (CU_INT == 1'b1)
-            NS <= ST_INTER;
-          else
-            NS <= ST_FETCH;
+//        ST_INTER: begin    // Interrupt
+//          NS              <= ST_FETCH;
+//          CU_FLG_SHAD_LD  <= 1'b1;
+//          CU_PC_LD        <= 1'b1;
+//          CU_PC_MUX_SEL   <= 2'b10;
+//          CU_SP_DECR      <= 1'b1;
+//          CU_SCR_WE       <= 1'b1;
+//          CU_SCR_DATA_SEL <= 1'b1;
+//          CU_SCR_ADDR_SEL <= 2'b11;
+//          CU_I_CLR        <= 1'b1;
+//        end
 
           // Op Code Decoder
           case (s_opcode)
@@ -497,16 +465,8 @@ module ControlUnit(
             7'b0101000:       // WSP
               CU_SP_LD <= 1'b1;
 
-            default:          // failsafe
-              CU_RST <= 1'b0;
-
+//            default:          // failsafe
+//              CU_RST <= 1'b0;
           endcase
         end
-
-        default:          // Failsafe
-          NS <= ST_INIT;
-
-      endcase
-    end
-
 endmodule

@@ -31,7 +31,6 @@ module RATMCU(
     );
     
     // Define internal signals /////////////////////////////////////////////////
-    logic s_rst;
     
     // ProgCount
     logic s_pc_ld, s_pc_inc;
@@ -115,6 +114,24 @@ module RATMCU(
         endcase
     end: SCR_ADDR_MUX
     
+    // Define Pipeline Stages and signals //////////////////////////////////////
+    logic [17:0] s_fetch_instr;
+    
+    always @(posedge CLK) // store instruction that is sent to decode
+    begin : Fetch
+        s_fetch_instr <= s_prog_instr; 
+    end : Fetch 
+    
+    
+    logic [12:0] s_decode_instr; //don't need upper 5 bits of instr
+    logic s_decode_dx_out;
+    logic s_decode_dy_out;
+    
+    always @(posedge CLK) // Store control signals and data from decode
+    begin : Decode
+       
+    end : Decode 
+    
     // Define hardware connections /////////////////////////////////////////////
     assign s_cu_intr = s_i_out & INTR;
     assign OUT_PORT = s_rf_dx_out;
@@ -123,12 +140,12 @@ module RATMCU(
     // Define submodule components /////////////////////////////////////////////
     InterReg I_REG (.I_SET(s_i_set), .I_CLR(s_i_clr), .I_CLK(CLK), .I_OUT(s_i_out));
     
-    ProgCount PC (.PC_CLK(CLK), .PC_RST(s_rst), .PC_LD(s_pc_ld),
-        .PC_INC(s_pc_inc), .PC_DIN(s_pc_din), .PC_COUNT(s_pc_count));
+    ProgCount PC (.PC_CLK(CLK), .PC_RST(RESET), .PC_LD(s_pc_ld),
+        .PC_DIN(s_pc_din), .PC_COUNT(s_pc_count));
     
     ProgRom PROG (.PROG_CLK(CLK), .PROG_ADDR(s_pc_count), .PROG_IR(s_prog_instr));
     
-    RegMem RF (.RF_ADDRX(s_prog_instr[12:8]), .RF_ADDRY(s_prog_instr[7:3]), 
+    RegMem RF (.RF_ADDRX(s_fetch_instr[12:8]), .RF_ADDRY(s_fetch_instr[7:3]), 
         .RF_WR(s_rf_wr), .RF_CLK(CLK), .RF_DIN(s_rf_din), .RF_DX_OUT(s_rf_dx_out),
         .RF_DY_OUT(s_rf_dy_out));
     
@@ -144,16 +161,16 @@ module RATMCU(
         .SCR_WE(s_scr_we), .SCR_DOUT(s_scr_data_out));
     
     StackPtr SP (.SP_CLK(CLK), .SP_INC(s_sp_inc), .SP_DEC(s_sp_dec), .SP_LD(s_sp_ld),
-        .SP_RST(s_rst), .SP_DIN(s_rf_dx_out), .SP_DOUT(s_sp_data_out));
+        .SP_RST(RESET), .SP_DIN(s_rf_dx_out), .SP_DOUT(s_sp_data_out));
     
     ControlUnit CU (.CU_CLK(CLK), .CU_C(s_flg_c), .CU_Z(s_flg_z), .CU_INT(s_cu_intr),
-        .CU_RESET(RESET), .CU_OPCODE_HI_5(s_prog_instr[17:13]), .CU_OPCODE_LO_2(s_prog_instr[1:0]),
+        .CU_OPCODE_HI_5(s_prog_instr[17:13]), .CU_OPCODE_LO_2(s_prog_instr[1:0]),
         .CU_PC_LD(s_pc_ld), .CU_PC_INC(s_pc_inc), .CU_PC_MUX_SEL(s_pc_mux_sel),
         .CU_SP_LD(s_sp_ld), .CU_SP_INCR(s_sp_inc), .CU_SP_DECR(s_sp_dec), .CU_RF_WR(s_rf_wr),
         .CU_RF_WR_SEL(s_rf_wr_sel), .CU_ALU_OPY_SEL(s_alu_opy_sel), .CU_ALU_SEL(s_alu_sel),
         .CU_SCR_WE(s_scr_we), .CU_SCR_DATA_SEL(s_scr_data_sel), .CU_SCR_ADDR_SEL(s_scr_addr_sel),
         .CU_FLG_C_SET(s_flg_c_set), .CU_FLG_C_CLR(s_flg_c_clr), .CU_FLG_C_LD(s_flg_c_ld),
         .CU_FLG_Z_LD(s_flg_z_ld), .CU_FLG_LD_SEL(s_flg_ld_sel), .CU_FLG_SHAD_LD(s_flg_shad_ld),
-        .CU_I_SET(s_i_set), .CU_I_CLR(s_i_clr), .CU_IO_STRB(IO_STRB), .CU_RST(s_rst));
+        .CU_I_SET(s_i_set), .CU_I_CLR(s_i_clr), .CU_IO_STRB(IO_STRB));
     
 endmodule
