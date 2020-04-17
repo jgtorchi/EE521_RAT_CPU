@@ -115,11 +115,23 @@ module RATMCU(
     end: SCR_ADDR_MUX
     
     // Define Pipeline Stages and signals //////////////////////////////////////
+    
+    //need to prefetch instruction count since it is always one cycle behind instruction
+    logic [9:0] s_prefetch_pc_count;
+    
+    always @(posedge CLK) // store instruction that is sent to decode
+    begin : PreFetch
+        s_prefetch_pc_count <= s_pc_count + 1; //preincrement PC count for return address 
+    end : PreFetch 
+    
+    
     logic [17:0] s_fetch_instr;
+    logic [9:0] s_fetch_pc_count;
     
     always @(posedge CLK) // store instruction that is sent to decode
     begin : Fetch
         s_fetch_instr <= s_prog_instr; 
+        s_fetch_pc_count <= s_prefetch_pc_count;
     end : Fetch 
     
     

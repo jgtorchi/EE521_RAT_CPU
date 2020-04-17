@@ -47,7 +47,10 @@ module ControlUnit(
   output logic CU_FLG_SHAD_LD,
   output logic CU_I_SET,
   output logic CU_I_CLR,
-  output logic CU_IO_STRB);
+  output logic CU_IO_STRB,
+  output logic CU_COND_BRN, // high when there is a conditional branch decoded
+  output logic [1:0] CU_COND_BRN_TYPE //specifies type of branch, '00' for , '01' for , '10' for , and '11' for 
+  );
 
 
   logic [6:0] s_opcode;
@@ -67,6 +70,7 @@ module ControlUnit(
       CU_FLG_C_LD <= 1'b0;  CU_FLG_C_CLR    <= 1'b0;   CU_FLG_C_SET    <= 1'b0;
       CU_FLG_Z_LD <= 1'b0;  CU_FLG_LD_SEL   <= 1'b0;   CU_FLG_SHAD_LD  <= 1'b0;
       CU_I_SET    <= 1'b0;	CU_I_CLR        <= 1'b0;   CU_IO_STRB      <= 1'b0;
+      CU_COND_BRN <= 1'b0;  CU_COND_BRN_TYPE<= 2'b00;
 
 
 //        ST_INTER: begin    // Interrupt
@@ -154,41 +158,51 @@ module ControlUnit(
             end
 
             7'b0010101: begin               // BRCC
-              if (CU_C == 1'b0) begin
-                CU_PC_LD      <= 1'b1;
-                CU_PC_MUX_SEL <= 2'b00;
-              end
+              CU_COND_BRN <= 1'b1;
+              CU_COND_BRN_TYPE<= 2'b00;
+//              if (CU_C == 1'b0) begin
+//                CU_PC_LD      <= 1'b1;
+//                CU_PC_MUX_SEL <= 2'b00;
+//              end
             end
 
             7'b0010100: begin              // BRCS
-              if (CU_C == 1'b1) begin
-                CU_PC_LD      <= 1'b1;
-                CU_PC_MUX_SEL <= 2'b00;
-              end
+              CU_COND_BRN <= 1'b1;
+              CU_COND_BRN_TYPE<= 2'b01;
+//              if (CU_C == 1'b1) begin
+//                CU_PC_LD      <= 1'b1;
+//                CU_PC_MUX_SEL <= 2'b00;
+//              end
             end
 
             7'b0010010: begin              // BREQ
-              if (CU_Z == 1'b1) begin
-                CU_PC_LD      <= 1'b1;
-                CU_PC_MUX_SEL <= 2'b00;
-              end
+              CU_COND_BRN <= 1'b1;
+              CU_COND_BRN_TYPE<= 2'b10;
+//              if (CU_Z == 1'b1) begin
+//                CU_PC_LD      <= 1'b1;
+//                CU_PC_MUX_SEL <= 2'b00;
+//              end
             end
 
-            7'b0010000: begin              // BRN
-              CU_PC_LD      <= 1'b1;
-              CU_PC_MUX_SEL <= 2'b00;
-            end
+// BRN removed since it is handled by the CALL_BRN_Handler
+//            7'b0010000: begin              // BRN
+//              CU_PC_LD      <= 1'b1;
+//              CU_PC_MUX_SEL <= 2'b00;
+//            end
 
             7'b0010011: begin              // BRNE
-              if (CU_Z == 1'b0) begin
-                CU_PC_LD      <= 1'b1;
-                CU_PC_MUX_SEL <= 2'b00;
-              end
+              CU_COND_BRN <= 1'b1;
+              CU_COND_BRN_TYPE<= 2'b11;
+//              if (CU_Z == 1'b0) begin
+//                CU_PC_LD      <= 1'b1;
+//                CU_PC_MUX_SEL <= 2'b00;
+//              end
             end
 
+ // some Call control signals removed since it is partially handled by the CALL_BRN_Handler
             7'b0010001: begin              // CALL
-              CU_PC_LD        <= 1'b1;
-              CU_PC_MUX_SEL   <= 2'b00;
+              //CU_PC_LD        <= 1'b1;
+              //CU_PC_MUX_SEL   <= 2'b00;
               CU_SP_LD        <= 1'b0;
               CU_SP_INCR      <= 1'b0;
               CU_SP_DECR      <= 1'b1;
