@@ -20,14 +20,10 @@
 //////////////////////////////////////////////////////////////////////////////////
 
 module ControlUnit(
-  input CU_CLK,
-  input CU_C,
-  input CU_Z,
   input CU_INT,
   input [4:0] CU_OPCODE_HI_5,
   input [1:0] CU_OPCODE_LO_2,
   output logic CU_PC_LD,
-  output logic CU_PC_INC,
   output logic [1:0] CU_PC_MUX_SEL,
   output logic CU_SP_LD,
   output logic CU_SP_INCR,
@@ -62,7 +58,7 @@ module ControlUnit(
     begin
 
       // Initialize all signals to avoid latches
-      CU_PC_INC   <= 1'b0;  CU_PC_MUX_SEL   <= 2'b00;  CU_PC_LD        <= 1'b0;
+      CU_PC_MUX_SEL   <= 2'b00;  CU_PC_LD        <= 1'b0;
       CU_SP_LD    <= 1'b0;  CU_SP_INCR      <= 1'b0;   CU_SP_DECR      <= 1'b0;
       CU_RF_WR    <= 1'b0;  CU_RF_WR_SEL    <= 2'b00;
       CU_ALU_SEL  <= 4'h0;  CU_ALU_OPY_SEL  <= 1'b0;
