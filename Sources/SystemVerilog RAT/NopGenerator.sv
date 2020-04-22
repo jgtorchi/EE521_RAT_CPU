@@ -52,7 +52,7 @@ module NopGenerator(
             PRE_EX_NOP <= 1'b0; end
     end : GENERATE_EX_NOP
     
-    assign EX_NOP = PRE_EX_NOP | TAKE_COND_BRN;
+    assign EX_NOP = PRE_EX_NOP | TAKE_COND_BRN | UNCON_BRN;
     
     always_comb
     begin : GENERATE_WB_NOP

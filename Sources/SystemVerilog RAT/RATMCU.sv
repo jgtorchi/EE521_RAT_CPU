@@ -33,7 +33,7 @@ module RATMCU(
     // Define internal signals /////////////////////////////////////////////////
     
     // ProgCount
-    logic s_pc_ld, s_pc_inc;
+    logic s_pc_ld;
     logic [1:0] s_pc_mux_sel;
     logic [9:0] s_pc_din, s_pc_count;
     
@@ -99,11 +99,6 @@ module RATMCU(
     logic s_decode_i_set, s_decode_i_clr, s_decode_io_strb, s_decode_cond_brn;
     logic [1:0] s_decode_cond_brn_type;
     
-    //decode stage nopped signals
-    logic s_decode_flg_c_set_nop, s_decode_flg_c_clr_nop, s_decode_flg_c_ld_nop; 
-    logic s_decode_flg_z_ld_nop, s_decode_flg_shad_ld_nop;
-    logic s_decode_i_set_nop, s_decode_i_clr_nop, s_decode_io_strb_nop;
-    
     //decode mux signals
     logic s_decode_dy_sel;
     logic [7:0] s_forward_decode_mux_dy_out; //forwarded data results
@@ -116,6 +111,11 @@ module RATMCU(
     //NOP generator signals
     logic s_ex_nop;
     logic s_wb_nop;
+    logic s_ex_nop_clr;
+    logic s_wb_nop_clr;
+    logic s_prefetch_nop_clr;
+    logic s_fetch_nop_clr;
+    logic s_decode_nop_clr;
     
     //execute mux signals
     logic s_execute_dx_sel;
@@ -188,12 +188,15 @@ module RATMCU(
     always @(posedge CLK) // store instruction that is sent to decode
     begin : PreFetch
         s_prefetch_pc_count <= s_pc_count + 1; //preincrement PC count for return address 
+        s_prefetch_nop_clr  <= s_execute_pc_ld;
+        s_fetch_nop_clr     <= s_prefetch_nop_clr;
     end : PreFetch 
     
     always @(posedge CLK) // store instruction that is sent to decode
     begin : Fetch
         s_fetch_instr <= s_prog_instr; 
         s_fetch_pc_count <= s_prefetch_pc_count;
+        s_ex_nop_clr <= s_fetch_nop_clr;
     end : Fetch 
     
     //Decode data forwarding muxs
@@ -242,7 +245,19 @@ module RATMCU(
         s_decode_cond_brn      <= s_cond_brn;    
         s_decode_cond_brn_type <= s_cond_brn_type;
         
-        if (s_ex_nop == 1'b1)
+        if (s_ex_nop_clr == 1'b1)
+            begin
+            s_decode_flg_c_set     <= s_flg_c_set;   //consumed
+            s_decode_flg_c_clr     <= s_flg_c_clr;   //consumed
+            s_decode_flg_c_ld      <= s_flg_c_ld;    //consumed
+            s_decode_flg_z_ld      <= s_flg_z_ld;    //consumed
+            s_decode_flg_shad_ld   <= s_flg_shad_ld; //consumed
+            s_decode_i_set         <= s_i_set;       //consumed
+            s_decode_i_clr         <= s_i_clr;       //consumed
+            s_decode_io_strb       <= s_io_strb;     //consumed
+            s_ex_nop               <= 1'b0; //set nop low on clear
+            end
+        else if (s_ex_nop == 1'b1)
             begin
             s_decode_flg_c_set     <= 1'b0;   //consumed, nopped
             s_decode_flg_c_clr     <= 1'b0;   //consumed, nopped
@@ -253,16 +268,28 @@ module RATMCU(
             s_decode_i_clr         <= 1'b0;       //consumed, nopped
             s_decode_io_strb       <= 1'b0;     //consumed, nopped
             end
+        else if ((s_take_cond_brn == 1'b1) | (s_pc_ld == 1'b1)) // branch occurs start nopping
+            begin
+            s_decode_flg_c_set     <= 1'b0;   //consumed, nopped
+            s_decode_flg_c_clr     <= 1'b0;   //consumed, nopped
+            s_decode_flg_c_ld      <= 1'b0;    //consumed, nopped
+            s_decode_flg_z_ld      <= 1'b0;    //consumed, nopped
+            s_decode_flg_shad_ld   <= 1'b0; //consumed, nopped
+            s_decode_i_set         <= 1'b0;       //consumed, nopped
+            s_decode_i_clr         <= 1'b0;       //consumed, nopped
+            s_decode_io_strb       <= 1'b0;     //consumed, nopped
+            s_ex_nop               <= 1'b1; //set nop high for branch
+            end
         else
             begin
-            s_decode_flg_c_set     <= s_flg_c_set;   //consumed, nopped
-            s_decode_flg_c_clr     <= s_flg_c_clr;   //consumed, nopped
-            s_decode_flg_c_ld      <= s_flg_c_ld;    //consumed, nopped
-            s_decode_flg_z_ld      <= s_flg_z_ld;    //consumed, nopped
-            s_decode_flg_shad_ld   <= s_flg_shad_ld; //consumed, nopped
-            s_decode_i_set         <= s_i_set;       //consumed, nopped
-            s_decode_i_clr         <= s_i_clr;       //consumed, nopped
-            s_decode_io_strb       <= s_io_strb;     //consumed, nopped
+            s_decode_flg_c_set     <= s_flg_c_set;   //consumed
+            s_decode_flg_c_clr     <= s_flg_c_clr;   //consumed
+            s_decode_flg_c_ld      <= s_flg_c_ld;    //consumed
+            s_decode_flg_z_ld      <= s_flg_z_ld;    //consumed
+            s_decode_flg_shad_ld   <= s_flg_shad_ld; //consumed
+            s_decode_i_set         <= s_i_set;       //consumed
+            s_decode_i_clr         <= s_i_clr;       //consumed
+            s_decode_io_strb       <= s_io_strb;     //consumed
             end
     end : Decode 
     
@@ -293,8 +320,8 @@ module RATMCU(
     CondBrnEvaluator CondBrnEvaluator( .COND_BRN(s_decode_cond_brn), .COND_BRN_TYPE(s_decode_cond_brn_type), 
         .C_FLAG(s_flg_c), .Z_FLAG(s_flg_z), .TAKE_COND_BRN(s_take_cond_brn));
         
-    NopGenerator NopGenerator( .CLK(CLK), .RESET(RESET), .UNCON_BRN(s_decode_pc_ld),
-        .TAKE_COND_BRN(s_take_cond_brn), .EX_NOP(s_ex_nop), .WB_NOP(s_wb_nop));    
+    //NopGenerator NopGenerator( .CLK(CLK), .RESET(RESET), .UNCON_BRN(s_decode_pc_ld),
+        //.TAKE_COND_BRN(s_take_cond_brn), .EX_NOP(s_ex_nop), .WB_NOP(s_wb_nop));    
             
     // Store result from execution and control signals for write back 
     always @(posedge CLK) 
@@ -310,31 +337,50 @@ module RATMCU(
         s_execute_scr_data_sel  <= s_decode_scr_data_sel;
         s_execute_scr_addr_sel  <= s_decode_scr_addr_sel;
         
-        if (s_wb_nop == 1'b1) 
-            begin
-            s_execute_sp_inc        <= 1'b0;    //nopped
-            s_execute_sp_dec        <= 1'b0;    //nopped
-            s_execute_sp_ld         <= 1'b0;     //nopped
-            s_execute_rf_wr         <= 1'b0;     //nopped
-            s_execute_pc_ld         <= 1'b0; //nopped
-            end
-        else 
+        //s_wb_nop                <= s_ex_nop;      
+        s_wb_nop_clr            <= s_ex_nop_clr;
+        if (s_wb_nop_clr == 1'b1) 
             begin
             s_execute_sp_inc        <= s_decode_sp_inc;    
             s_execute_sp_dec        <= s_decode_sp_dec;    
             s_execute_sp_ld         <= s_decode_sp_ld;     
             s_execute_rf_wr         <= s_decode_rf_wr; 
-            
+            s_execute_pc_ld         <= s_decode_pc_ld;
+            s_wb_nop                <= 1'b0; //clear nop
             if (s_take_cond_brn == 1'b1) // take conditional branch
                 begin
                 s_execute_pc_ld  <= 1'b1;
                 end
-            else
-                begin
-                s_execute_pc_ld  <= s_decode_pc_ld;
-                end    
             end
-
+        else if (s_wb_nop == 1'b1) 
+            begin
+            s_execute_sp_inc        <= 1'b0;    //nopped
+            s_execute_sp_dec        <= 1'b0;    //nopped
+            s_execute_sp_ld         <= 1'b0;    //nopped
+            s_execute_rf_wr         <= 1'b0;    //nopped
+            s_execute_pc_ld         <= 1'b0;    //nopped    
+            end
+        else if (s_execute_pc_ld  == 1'b1)
+            begin
+            s_execute_sp_inc        <= 1'b0;    //nopped
+            s_execute_sp_dec        <= 1'b0;    //nopped
+            s_execute_sp_ld         <= 1'b0;    //nopped
+            s_execute_rf_wr         <= 1'b0;    //nopped
+            s_execute_pc_ld         <= 1'b0;    //nopped
+            s_wb_nop                <= 1'b1; //set nop branching
+            end
+        else
+            begin 
+            s_execute_sp_inc        <= s_decode_sp_inc;    
+            s_execute_sp_dec        <= s_decode_sp_dec;    
+            s_execute_sp_ld         <= s_decode_sp_ld;     
+            s_execute_rf_wr         <= s_decode_rf_wr; 
+            s_execute_pc_ld  <= s_decode_pc_ld;
+            if (s_take_cond_brn == 1'b1) // take conditional branch
+                begin
+                s_execute_pc_ld  <= 1'b1;
+                end
+            end
     end : Execute 
     
     
