@@ -34,6 +34,7 @@ module RATMCU(
     
     // ProgCount
     logic s_pc_ld;
+    logic s_pc_ld_final;
     logic [1:0] s_pc_mux_sel;
     logic [9:0] s_pc_din, s_pc_count;
     
@@ -135,16 +136,31 @@ module RATMCU(
     logic s_execute_scr_we, s_execute_scr_data_sel;
     logic [1:0] s_execute_scr_addr_sel;
     
+    logic s_predict_pc_ld;
+    logic s_pc_cnt_mux_sel;
+    logic s_cond_brn_taken;
+    
+    logic [9:0] s_pc_count_final;
+    
     // Define Muxes ////////////////////////////////////////////////////////////
     
     always_comb begin: PC_MUX
         case (s_execute_pc_mux_sel)
-            2'b00: s_pc_din = s_execute_instr[12:3];
+            2'b00: s_pc_din = s_prog_instr[12:3] + 1;
             2'b01: s_pc_din = s_scr_data_out;
             2'b10: s_pc_din = 10'h3FF;
+            2'b11: s_pc_din = s_execute_instr[12:3];
             default: s_pc_din = 10'h000; // failsafe
         endcase
     end: PC_MUX
+    
+    always_comb begin: PC_CNT_MUX
+        case (s_pc_cnt_mux_sel)
+            1'b0: s_pc_count_final = s_pc_count;
+            1'b1: s_pc_count_final = s_prog_instr[12:3];
+            default: s_pc_count_final = s_pc_count; // failsafe
+        endcase
+    end: PC_CNT_MUX
     
     always_comb begin: REG_MUX
         case (s_execute_rf_wr_sel)
@@ -187,7 +203,7 @@ module RATMCU(
     //need to prefetch instruction count since it is always one cycle behind instruction    
     always @(posedge CLK) // store instruction that is sent to decode
     begin : PreFetch
-        s_prefetch_pc_count <= s_pc_count + 1; //preincrement PC count for return address 
+        s_prefetch_pc_count <= s_pc_count_final + 1; //preincrement PC count for return address 
         s_prefetch_nop_clr  <= s_execute_pc_ld;
         s_fetch_nop_clr     <= s_prefetch_nop_clr;
     end : PreFetch 
@@ -319,9 +335,6 @@ module RATMCU(
         
     CondBrnEvaluator CondBrnEvaluator( .COND_BRN(s_decode_cond_brn), .COND_BRN_TYPE(s_decode_cond_brn_type), 
         .C_FLAG(s_flg_c), .Z_FLAG(s_flg_z), .TAKE_COND_BRN(s_take_cond_brn));
-        
-    //NopGenerator NopGenerator( .CLK(CLK), .RESET(RESET), .UNCON_BRN(s_decode_pc_ld),
-        //.TAKE_COND_BRN(s_take_cond_brn), .EX_NOP(s_ex_nop), .WB_NOP(s_wb_nop));    
             
     // Store result from execution and control signals for write back 
     always @(posedge CLK) 
@@ -333,7 +346,7 @@ module RATMCU(
         s_execute_alu_result    <= s_alu_result;
         s_execute_pc_mux_sel    <= s_decode_pc_mux_sel;
         s_execute_rf_wr_sel     <= s_decode_rf_wr_sel;
-        s_execute_scr_we        <= s_decode_scr_we;
+        //s_execute_scr_we        <= s_decode_scr_we;
         s_execute_scr_data_sel  <= s_decode_scr_data_sel;
         s_execute_scr_addr_sel  <= s_decode_scr_addr_sel;
         
@@ -346,10 +359,12 @@ module RATMCU(
             s_execute_sp_ld         <= s_decode_sp_ld;     
             s_execute_rf_wr         <= s_decode_rf_wr; 
             s_execute_pc_ld         <= s_decode_pc_ld;
+            s_execute_scr_we        <= s_decode_scr_we;
             s_wb_nop                <= 1'b0; //clear nop
             if (s_take_cond_brn == 1'b1) // take conditional branch
                 begin
-                s_execute_pc_ld  <= 1'b1;
+                s_execute_pc_ld       <= 1'b1;
+                s_execute_pc_mux_sel  <= 2'b11;   
                 end
             end
         else if (s_wb_nop == 1'b1) 
@@ -359,6 +374,8 @@ module RATMCU(
             s_execute_sp_ld         <= 1'b0;    //nopped
             s_execute_rf_wr         <= 1'b0;    //nopped
             s_execute_pc_ld         <= 1'b0;    //nopped    
+            s_execute_pc_mux_sel    <= 2'b00;   //nopped
+            s_execute_scr_we        <= 1'b0;    //nopped
             end
         else if (s_execute_pc_ld  == 1'b1)
             begin
@@ -367,7 +384,9 @@ module RATMCU(
             s_execute_sp_ld         <= 1'b0;    //nopped
             s_execute_rf_wr         <= 1'b0;    //nopped
             s_execute_pc_ld         <= 1'b0;    //nopped
-            s_wb_nop                <= 1'b1; //set nop branching
+            s_execute_pc_mux_sel    <= 2'b00;   //nopped
+            s_execute_scr_we        <= 1'b0;    //nopped
+            s_wb_nop                <= 1'b1; //set nop, branching
             end
         else
             begin 
@@ -375,10 +394,12 @@ module RATMCU(
             s_execute_sp_dec        <= s_decode_sp_dec;    
             s_execute_sp_ld         <= s_decode_sp_ld;     
             s_execute_rf_wr         <= s_decode_rf_wr; 
-            s_execute_pc_ld  <= s_decode_pc_ld;
+            s_execute_pc_ld         <= s_decode_pc_ld;
+            s_execute_scr_we        <= s_decode_scr_we;
             if (s_take_cond_brn == 1'b1) // take conditional branch
                 begin
-                s_execute_pc_ld  <= 1'b1;
+                s_execute_pc_ld         <= 1'b1;
+                s_execute_pc_mux_sel    <= 2'b11;
                 end
             end
     end : Execute 
@@ -390,14 +411,15 @@ module RATMCU(
     assign PORT_ID = s_decode_instr[7:0];
     assign IO_STRB = s_decode_io_strb;
     assign s_rf_addr_wr = s_execute_instr[12:8];
+    assign s_pc_ld_final = s_execute_pc_ld | s_predict_pc_ld;
     
     // Define submodule components /////////////////////////////////////////////
     InterReg I_REG (.I_SET(s_decode_i_set), .I_CLR(s_decode_i_clr), .I_CLK(CLK), .I_OUT(s_i_out));
     
-    ProgCount PC (.PC_CLK(CLK), .PC_RST(RESET), .PC_LD(s_execute_pc_ld),
+    ProgCount PC (.PC_CLK(CLK), .PC_RST(RESET), .PC_LD(s_pc_ld_final),
         .PC_DIN(s_pc_din), .PC_COUNT(s_pc_count));
     
-    ProgRom PROG (.PROG_CLK(CLK), .PROG_ADDR(s_pc_count), .PROG_IR(s_prog_instr));
+    ProgRom PROG (.PROG_CLK(CLK), .PROG_ADDR(s_pc_count_final), .PROG_IR(s_prog_instr));
     
     RegMem RF (.RF_ADDRX(s_fetch_instr[12:8]), .RF_ADDRY(s_fetch_instr[7:3]), .RF_ADDR_WR(s_rf_addr_wr),
         .RF_WR(s_execute_rf_wr), .RF_CLK(CLK), .RF_DIN(s_rf_din), .RF_DX_OUT(s_rf_dx_out),
@@ -427,5 +449,9 @@ module RATMCU(
         .CU_FLG_Z_LD(s_flg_z_ld), .CU_FLG_LD_SEL(s_flg_ld_sel), .CU_FLG_SHAD_LD(s_flg_shad_ld),
         .CU_I_SET(s_i_set), .CU_I_CLR(s_i_clr), .CU_IO_STRB(s_io_strb), 
         .CU_COND_BRN(s_cond_brn), .CU_COND_BRN_TYPE(s_cond_brn_type));
+    
+     BranchPredictor BP (.BP_OPCODE_HI_5(s_prog_instr[17:13]), .BP_OPCODE_LO_2(s_prog_instr[1:0]), 
+        .BP_CURR_ADDR(s_prefetch_pc_count), .BP_BRN_ADDR(s_prog_instr[12:3]), .BP_NOP_CLR(s_prefetch_nop_clr), 
+        .BP_PC_LD(s_predict_pc_ld), .BP_PC_CNT_MUX_SEL(s_pc_cnt_mux_sel), .BP_COND_BRN_TAKEN(s_cond_brn_taken));
     
 endmodule

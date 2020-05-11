@@ -156,6 +156,7 @@ module ControlUnit(
             7'b0010101: begin               // BRCC
               CU_COND_BRN <= 1'b1;
               CU_COND_BRN_TYPE<= 2'b00;
+              //CU_PC_MUX_SEL <= 2'b11;
 //              if (CU_C == 1'b0) begin
 //                CU_PC_LD      <= 1'b1;
 //                CU_PC_MUX_SEL <= 2'b00;
@@ -165,6 +166,7 @@ module ControlUnit(
             7'b0010100: begin              // BRCS
               CU_COND_BRN <= 1'b1;
               CU_COND_BRN_TYPE<= 2'b01;
+              //CU_PC_MUX_SEL <= 2'b11;
 //              if (CU_C == 1'b1) begin
 //                CU_PC_LD      <= 1'b1;
 //                CU_PC_MUX_SEL <= 2'b00;
@@ -174,6 +176,7 @@ module ControlUnit(
             7'b0010010: begin              // BREQ
               CU_COND_BRN <= 1'b1;
               CU_COND_BRN_TYPE<= 2'b10;
+              //CU_PC_MUX_SEL <= 2'b11;
 //              if (CU_Z == 1'b1) begin
 //                CU_PC_LD      <= 1'b1;
 //                CU_PC_MUX_SEL <= 2'b00;
@@ -181,13 +184,14 @@ module ControlUnit(
             end
 
             7'b0010000: begin              // BRN
-              CU_PC_LD      <= 1'b1;
-              CU_PC_MUX_SEL <= 2'b00;
+              //CU_PC_LD      <= 1'b1;
+              //CU_PC_MUX_SEL <= 2'b11;
             end
 
             7'b0010011: begin              // BRNE
               CU_COND_BRN <= 1'b1;
               CU_COND_BRN_TYPE<= 2'b11;
+              //CU_PC_MUX_SEL <= 2'b11;
 //              if (CU_Z == 1'b0) begin
 //                CU_PC_LD      <= 1'b1;
 //                CU_PC_MUX_SEL <= 2'b00;
@@ -195,8 +199,8 @@ module ControlUnit(
             end
 
             7'b0010001: begin              // CALL
-              CU_PC_LD        <= 1'b1;
-              CU_PC_MUX_SEL   <= 2'b00;
+              //CU_PC_LD        <= 1'b1;
+              //CU_PC_MUX_SEL   <= 2'b11;
               CU_SP_LD        <= 1'b0;
               CU_SP_INCR      <= 1'b0;
               CU_SP_DECR      <= 1'b1;
