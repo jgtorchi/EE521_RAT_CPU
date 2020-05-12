@@ -33,6 +33,9 @@ module BranchPredictor(
     
     logic uncond_pc_cnt_mux_sel;
     logic uncond_pc_ld;
+    logic cond_pc_cnt_mux_sel;
+    logic cond_pc_ld;
+    logic cond_brn_taken;
     logic [6:0] s_opcode;
     assign s_opcode = {BP_OPCODE_HI_5,BP_OPCODE_LO_2};
     
@@ -57,7 +60,32 @@ module BranchPredictor(
             end
     end
     
-    assign BP_PC_LD = uncond_pc_ld;
-    assign BP_PC_CNT_MUX_SEL = uncond_pc_cnt_mux_sel;    
+    always_comb
+    begin : COND_BRN_PREDICTOR
+        cond_pc_cnt_mux_sel <= 1'b0;
+        cond_pc_ld          <= 1'b0;
+        cond_brn_taken      <= 1'b0;
+        if (BP_NOP_CLR == 1'b1) 
+            begin
+            cond_pc_cnt_mux_sel <= 1'b0;
+            cond_pc_ld          <= 1'b0;
+            end
+        else
+            begin
+            if( (s_opcode == 7'b0010101) | (s_opcode == 7'b0010100) | (s_opcode == 7'b0010010) | (s_opcode == 7'b0010011) )
+                begin
+                if(BP_BRN_ADDR < BP_CURR_ADDR)
+                    begin
+                        cond_pc_cnt_mux_sel <= 1'b1;
+                        cond_pc_ld          <= 1'b1;
+                        cond_brn_taken      <= 1'b1;
+                    end
+                end
+            end
+    end
+    
+    assign BP_PC_LD = uncond_pc_ld | cond_pc_ld;
+    assign BP_PC_CNT_MUX_SEL = uncond_pc_cnt_mux_sel | cond_pc_cnt_mux_sel;  
+    assign BP_COND_BRN_TAKEN = cond_brn_taken;  
     
 endmodule

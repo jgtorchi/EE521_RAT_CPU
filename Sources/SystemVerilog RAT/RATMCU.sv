@@ -81,6 +81,7 @@ module RATMCU(
     //fetch stage signals
     logic [17:0] s_fetch_instr;
     logic [9:0] s_fetch_pc_count;
+    logic s_fetch_cond_brn_taken;
     
     //decode stage signals
     logic [12:0] s_decode_instr; //don't need upper 5 bits of instr
@@ -99,6 +100,7 @@ module RATMCU(
     logic s_decode_flg_z_ld, s_decode_flg_ld_sel, s_decode_flg_shad_ld;
     logic s_decode_i_set, s_decode_i_clr, s_decode_io_strb, s_decode_cond_brn;
     logic [1:0] s_decode_cond_brn_type;
+    logic s_decode_cond_brn_taken;
     
     //decode mux signals
     logic s_decode_dy_sel;
@@ -141,6 +143,7 @@ module RATMCU(
     logic s_cond_brn_taken;
     
     logic [9:0] s_pc_count_final;
+    logic [9:0] s_wb_branch_target;
     
     // Define Muxes ////////////////////////////////////////////////////////////
     
@@ -149,7 +152,7 @@ module RATMCU(
             2'b00: s_pc_din = s_prog_instr[12:3] + 1;
             2'b01: s_pc_din = s_scr_data_out;
             2'b10: s_pc_din = 10'h3FF;
-            2'b11: s_pc_din = s_execute_instr[12:3];
+            2'b11: s_pc_din = s_wb_branch_target;
             default: s_pc_din = 10'h000; // failsafe
         endcase
     end: PC_MUX
@@ -213,6 +216,7 @@ module RATMCU(
         s_fetch_instr <= s_prog_instr; 
         s_fetch_pc_count <= s_prefetch_pc_count;
         s_ex_nop_clr <= s_fetch_nop_clr;
+        s_fetch_cond_brn_taken <= s_cond_brn_taken;
     end : Fetch 
     
     //Decode data forwarding muxs
@@ -260,6 +264,7 @@ module RATMCU(
         s_decode_flg_ld_sel    <= s_flg_ld_sel;  //consumed
         s_decode_cond_brn      <= s_cond_brn;    
         s_decode_cond_brn_type <= s_cond_brn_type;
+        s_decode_cond_brn_taken <= s_fetch_cond_brn_taken;
         
         if (s_ex_nop_clr == 1'b1)
             begin
@@ -284,7 +289,7 @@ module RATMCU(
             s_decode_i_clr         <= 1'b0;       //consumed, nopped
             s_decode_io_strb       <= 1'b0;     //consumed, nopped
             end
-        else if ((s_take_cond_brn == 1'b1) | (s_pc_ld == 1'b1)) // branch occurs start nopping
+        else if ((s_pc_ld == 1'b1) | ((s_take_cond_brn == 1'b1) & (s_decode_cond_brn_taken == 1'b0)) | ((s_take_cond_brn == 1'b0) & (s_decode_cond_brn_taken == 1'b1))) // branch occurs start nopping
             begin
             s_decode_flg_c_set     <= 1'b0;   //consumed, nopped
             s_decode_flg_c_clr     <= 1'b0;   //consumed, nopped
@@ -349,6 +354,7 @@ module RATMCU(
         //s_execute_scr_we        <= s_decode_scr_we;
         s_execute_scr_data_sel  <= s_decode_scr_data_sel;
         s_execute_scr_addr_sel  <= s_decode_scr_addr_sel;
+        s_wb_branch_target      <= s_decode_instr[12:3];
         
         //s_wb_nop                <= s_ex_nop;      
         s_wb_nop_clr            <= s_ex_nop_clr;
@@ -361,10 +367,19 @@ module RATMCU(
             s_execute_pc_ld         <= s_decode_pc_ld;
             s_execute_scr_we        <= s_decode_scr_we;
             s_wb_nop                <= 1'b0; //clear nop
-            if (s_take_cond_brn == 1'b1) // take conditional branch
+            // take conditional branch, when predicted not taken
+            if ( (s_take_cond_brn == 1'b1) & (s_decode_cond_brn_taken == 1'b0)) 
                 begin
                 s_execute_pc_ld       <= 1'b1;
                 s_execute_pc_mux_sel  <= 2'b11;   
+                s_wb_branch_target      <= s_decode_instr[12:3];
+                end
+            // don't take conditional branch, when predicted taken    
+            else if ( (s_take_cond_brn == 1'b0) & (s_decode_cond_brn_taken == 1'b1)) 
+                begin 
+                s_execute_pc_ld       <= 1'b1;
+                s_execute_pc_mux_sel  <= 2'b11;  
+                s_wb_branch_target    <= s_decode_pc_count;
                 end
             end
         else if (s_wb_nop == 1'b1) 
@@ -396,10 +411,19 @@ module RATMCU(
             s_execute_rf_wr         <= s_decode_rf_wr; 
             s_execute_pc_ld         <= s_decode_pc_ld;
             s_execute_scr_we        <= s_decode_scr_we;
-            if (s_take_cond_brn == 1'b1) // take conditional branch
+            // take conditional branch, when predicted not taken
+            if ( (s_take_cond_brn == 1'b1) & (s_decode_cond_brn_taken == 1'b0)) 
                 begin
-                s_execute_pc_ld         <= 1'b1;
-                s_execute_pc_mux_sel    <= 2'b11;
+                s_execute_pc_ld       <= 1'b1;
+                s_execute_pc_mux_sel  <= 2'b11;   
+                s_wb_branch_target      <= s_decode_instr[12:3];
+                end
+            // don't take conditional branch, when predicted taken    
+            else if ( (s_take_cond_brn == 1'b0) & (s_decode_cond_brn_taken == 1'b1)) 
+                begin 
+                s_execute_pc_ld       <= 1'b1;
+                s_execute_pc_mux_sel  <= 2'b11;  
+                s_wb_branch_target    <= s_decode_pc_count;
                 end
             end
     end : Execute 
