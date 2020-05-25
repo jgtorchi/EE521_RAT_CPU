@@ -474,8 +474,9 @@ module RATMCU(
         .CU_I_SET(s_i_set), .CU_I_CLR(s_i_clr), .CU_IO_STRB(s_io_strb), 
         .CU_COND_BRN(s_cond_brn), .CU_COND_BRN_TYPE(s_cond_brn_type));
     
-     BranchPredictor BP (.BP_OPCODE_HI_5(s_prog_instr[17:13]), .BP_OPCODE_LO_2(s_prog_instr[1:0]), 
-        .BP_CURR_ADDR(s_prefetch_pc_count), .BP_BRN_ADDR(s_prog_instr[12:3]), .BP_NOP_CLR(s_prefetch_nop_clr), 
+     BranchPredictor BP (.BP_CLK(CLK), .BP_OPCODE_HI_5(s_prog_instr[17:13]), .BP_OPCODE_LO_2(s_prog_instr[1:0]), 
+        .BP_CURR_ADDR(s_prefetch_pc_count), .BP_NOP_CLR(s_prefetch_nop_clr), .BP_EX_NOP(s_ex_nop), .BP_TAKE_COND_BRN(s_take_cond_brn),
+        .BP_DECODE_COND_BRN(s_decode_cond_brn), .BP_EVAL_BRN_ADDR(s_decode_pc_count),
         .BP_PC_LD(s_predict_pc_ld), .BP_PC_CNT_MUX_SEL(s_pc_cnt_mux_sel), .BP_COND_BRN_TAKEN(s_cond_brn_taken));
     
 endmodule

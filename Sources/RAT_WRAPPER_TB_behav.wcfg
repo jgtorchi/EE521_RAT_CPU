@@ -1,0 +1,692 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="RAT_WRAPPER_TB_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="RAT_WRAPPER_TB" />
+            <top_module name="glbl" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="0fs"></ZoomStartTime>
+      <ZoomEndTime time="3610001fs"></ZoomEndTime>
+      <Cursor1Time time="640000fs"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="247"></NameColumnWidth>
+      <ValueColumnWidth column_width="62"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="23" />
+   <wvobject fp_name="/RAT_WRAPPER_TB/CLK" type="logic">
+      <obj_property name="ElementShortName">CLK</obj_property>
+      <obj_property name="ObjectShortName">CLK</obj_property>
+   </wvobject>
+   <wvobject fp_name="/RAT_WRAPPER_TB/BTNL" type="logic">
+      <obj_property name="ElementShortName">BTNL</obj_property>
+      <obj_property name="ObjectShortName">BTNL</obj_property>
+   </wvobject>
+   <wvobject fp_name="/RAT_WRAPPER_TB/BTNC" type="logic">
+      <obj_property name="ElementShortName">BTNC</obj_property>
+      <obj_property name="ObjectShortName">BTNC</obj_property>
+   </wvobject>
+   <wvobject fp_name="/RAT_WRAPPER_TB/SWITCHES" type="array">
+      <obj_property name="ElementShortName">SWITCHES[7:0]</obj_property>
+      <obj_property name="ObjectShortName">SWITCHES[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/RAT_WRAPPER_TB/LEDS" type="array">
+      <obj_property name="ElementShortName">LEDS[7:0]</obj_property>
+      <obj_property name="ObjectShortName">LEDS[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/RAT_WRAPPER_TB/CATHODES" type="array">
+      <obj_property name="ElementShortName">CATHODES[7:0]</obj_property>
+      <obj_property name="ObjectShortName">CATHODES[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/RAT_WRAPPER_TB/ANODES" type="array">
+      <obj_property name="ElementShortName">ANODES[3:0]</obj_property>
+      <obj_property name="ObjectShortName">ANODES[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/IN_PORT" type="array">
+      <obj_property name="ElementShortName">IN_PORT[7:0]</obj_property>
+      <obj_property name="ObjectShortName">IN_PORT[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/INTR" type="logic">
+      <obj_property name="ElementShortName">INTR</obj_property>
+      <obj_property name="ObjectShortName">INTR</obj_property>
+   </wvobject>
+   <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/RESET" type="logic">
+      <obj_property name="ElementShortName">RESET</obj_property>
+      <obj_property name="ObjectShortName">RESET</obj_property>
+   </wvobject>
+   <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/IO_STRB" type="logic">
+      <obj_property name="ElementShortName">IO_STRB</obj_property>
+      <obj_property name="ObjectShortName">IO_STRB</obj_property>
+   </wvobject>
+   <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/OUT_PORT" type="array">
+      <obj_property name="ElementShortName">OUT_PORT[7:0]</obj_property>
+      <obj_property name="ObjectShortName">OUT_PORT[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/PORT_ID" type="array">
+      <obj_property name="ElementShortName">PORT_ID[7:0]</obj_property>
+      <obj_property name="ObjectShortName">PORT_ID[7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="group129" type="group">
+      <obj_property name="label">RAT_MCU_INTERNAL</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/s_ex_nop" type="logic">
+         <obj_property name="ElementShortName">s_ex_nop</obj_property>
+         <obj_property name="ObjectShortName">s_ex_nop</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/s_wb_nop" type="logic">
+         <obj_property name="ElementShortName">s_wb_nop</obj_property>
+         <obj_property name="ObjectShortName">s_wb_nop</obj_property>
+      </wvobject>
+      <wvobject fp_name="group172" type="group">
+         <obj_property name="label">Prefetch</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/CLK" type="logic">
+            <obj_property name="ElementShortName">CLK</obj_property>
+            <obj_property name="ObjectShortName">CLK</obj_property>
+         </wvobject>
+         <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/s_pc_count" type="array">
+            <obj_property name="ElementShortName">s_pc_count[9:0]</obj_property>
+            <obj_property name="ObjectShortName">s_pc_count[9:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/s_prefetch_pc_count" type="array">
+            <obj_property name="ElementShortName">s_prefetch_pc_count[9:0]</obj_property>
+            <obj_property name="ObjectShortName">s_prefetch_pc_count[9:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/s_prefetch_nop_clr" type="logic">
+            <obj_property name="ElementShortName">s_prefetch_nop_clr</obj_property>
+            <obj_property name="ObjectShortName">s_prefetch_nop_clr</obj_property>
+         </wvobject>
+         <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/s_fetch_nop_clr" type="logic">
+            <obj_property name="ElementShortName">s_fetch_nop_clr</obj_property>
+            <obj_property name="ObjectShortName">s_fetch_nop_clr</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject fp_name="group173" type="group">
+         <obj_property name="label">Fetch</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+         <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/s_fetch_pc_count" type="array">
+            <obj_property name="ElementShortName">s_fetch_pc_count[9:0]</obj_property>
+            <obj_property name="ObjectShortName">s_fetch_pc_count[9:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/s_fetch_instr" type="array">
+            <obj_property name="ElementShortName">s_fetch_instr[17:0]</obj_property>
+            <obj_property name="ObjectShortName">s_fetch_instr[17:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/s_ex_nop_clr" type="logic">
+            <obj_property name="ElementShortName">s_ex_nop_clr</obj_property>
+            <obj_property name="ObjectShortName">s_ex_nop_clr</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject fp_name="group174" type="group">
+         <obj_property name="label">Decode</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/s_decode_instr" type="array">
+            <obj_property name="ElementShortName">s_decode_instr[12:0]</obj_property>
+            <obj_property name="ObjectShortName">s_decode_instr[12:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/s_decode_pc_count" type="array">
+            <obj_property name="ElementShortName">s_decode_pc_count[9:0]</obj_property>
+            <obj_property name="ObjectShortName">s_decode_pc_count[9:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/s_decode_dx_out" type="array">
+            <obj_property name="ElementShortName">s_decode_dx_out[7:0]</obj_property>
+            <obj_property name="ObjectShortName">s_decode_dx_out[7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/s_decode_dy_out" type="array">
+            <obj_property name="ElementShortName">s_decode_dy_out[7:0]</obj_property>
+            <obj_property name="ObjectShortName">s_decode_dy_out[7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/s_decode_pc_ld" type="logic">
+            <obj_property name="ElementShortName">s_decode_pc_ld</obj_property>
+            <obj_property name="ObjectShortName">s_decode_pc_ld</obj_property>
+         </wvobject>
+         <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/s_decode_pc_mux_sel" type="array">
+            <obj_property name="ElementShortName">s_decode_pc_mux_sel[1:0]</obj_property>
+            <obj_property name="ObjectShortName">s_decode_pc_mux_sel[1:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/s_decode_sp_inc" type="logic">
+            <obj_property name="ElementShortName">s_decode_sp_inc</obj_property>
+            <obj_property name="ObjectShortName">s_decode_sp_inc</obj_property>
+         </wvobject>
+         <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/s_decode_sp_dec" type="logic">
+            <obj_property name="ElementShortName">s_decode_sp_dec</obj_property>
+            <obj_property name="ObjectShortName">s_decode_sp_dec</obj_property>
+         </wvobject>
+         <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/s_decode_sp_ld" type="logic">
+            <obj_property name="ElementShortName">s_decode_sp_ld</obj_property>
+            <obj_property name="ObjectShortName">s_decode_sp_ld</obj_property>
+         </wvobject>
+         <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/s_decode_rf_wr" type="logic">
+            <obj_property name="ElementShortName">s_decode_rf_wr</obj_property>
+            <obj_property name="ObjectShortName">s_decode_rf_wr</obj_property>
+         </wvobject>
+         <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/s_decode_rf_wr_sel" type="array">
+            <obj_property name="ElementShortName">s_decode_rf_wr_sel[1:0]</obj_property>
+            <obj_property name="ObjectShortName">s_decode_rf_wr_sel[1:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/s_decode_alu_opy_sel" type="logic">
+            <obj_property name="ElementShortName">s_decode_alu_opy_sel</obj_property>
+            <obj_property name="ObjectShortName">s_decode_alu_opy_sel</obj_property>
+         </wvobject>
+         <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/s_decode_alu_sel" type="array">
+            <obj_property name="ElementShortName">s_decode_alu_sel[3:0]</obj_property>
+            <obj_property name="ObjectShortName">s_decode_alu_sel[3:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/s_decode_scr_we" type="logic">
+            <obj_property name="ElementShortName">s_decode_scr_we</obj_property>
+            <obj_property name="ObjectShortName">s_decode_scr_we</obj_property>
+         </wvobject>
+         <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/s_decode_scr_data_sel" type="logic">
+            <obj_property name="ElementShortName">s_decode_scr_data_sel</obj_property>
+            <obj_property name="ObjectShortName">s_decode_scr_data_sel</obj_property>
+         </wvobject>
+         <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/s_decode_scr_addr_sel" type="array">
+            <obj_property name="ElementShortName">s_decode_scr_addr_sel[1:0]</obj_property>
+            <obj_property name="ObjectShortName">s_decode_scr_addr_sel[1:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/s_decode_flg_c_set" type="logic">
+            <obj_property name="ElementShortName">s_decode_flg_c_set</obj_property>
+            <obj_property name="ObjectShortName">s_decode_flg_c_set</obj_property>
+         </wvobject>
+         <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/s_decode_flg_c_clr" type="logic">
+            <obj_property name="ElementShortName">s_decode_flg_c_clr</obj_property>
+            <obj_property name="ObjectShortName">s_decode_flg_c_clr</obj_property>
+         </wvobject>
+         <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/s_decode_flg_ld_sel" type="logic">
+            <obj_property name="ElementShortName">s_decode_flg_ld_sel</obj_property>
+            <obj_property name="ObjectShortName">s_decode_flg_ld_sel</obj_property>
+         </wvobject>
+         <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/s_decode_flg_shad_ld" type="logic">
+            <obj_property name="ElementShortName">s_decode_flg_shad_ld</obj_property>
+            <obj_property name="ObjectShortName">s_decode_flg_shad_ld</obj_property>
+         </wvobject>
+         <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/s_decode_i_set" type="logic">
+            <obj_property name="ElementShortName">s_decode_i_set</obj_property>
+            <obj_property name="ObjectShortName">s_decode_i_set</obj_property>
+         </wvobject>
+         <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/s_decode_i_clr" type="logic">
+            <obj_property name="ElementShortName">s_decode_i_clr</obj_property>
+            <obj_property name="ObjectShortName">s_decode_i_clr</obj_property>
+         </wvobject>
+         <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/s_decode_io_strb" type="logic">
+            <obj_property name="ElementShortName">s_decode_io_strb</obj_property>
+            <obj_property name="ObjectShortName">s_decode_io_strb</obj_property>
+         </wvobject>
+         <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/s_decode_flg_c_ld" type="logic">
+            <obj_property name="ElementShortName">s_decode_flg_c_ld</obj_property>
+            <obj_property name="ObjectShortName">s_decode_flg_c_ld</obj_property>
+         </wvobject>
+         <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/s_decode_flg_z_ld" type="logic">
+            <obj_property name="ElementShortName">s_decode_flg_z_ld</obj_property>
+            <obj_property name="ObjectShortName">s_decode_flg_z_ld</obj_property>
+         </wvobject>
+         <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/s_decode_cond_brn" type="logic">
+            <obj_property name="ElementShortName">s_decode_cond_brn</obj_property>
+            <obj_property name="ObjectShortName">s_decode_cond_brn</obj_property>
+         </wvobject>
+         <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/s_decode_cond_brn_type" type="array">
+            <obj_property name="ElementShortName">s_decode_cond_brn_type[1:0]</obj_property>
+            <obj_property name="ObjectShortName">s_decode_cond_brn_type[1:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/s_take_cond_brn" type="logic">
+            <obj_property name="ElementShortName">s_take_cond_brn</obj_property>
+            <obj_property name="ObjectShortName">s_take_cond_brn</obj_property>
+         </wvobject>
+         <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/s_flg_c" type="logic">
+            <obj_property name="ElementShortName">s_flg_c</obj_property>
+            <obj_property name="ObjectShortName">s_flg_c</obj_property>
+         </wvobject>
+         <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/s_flg_z" type="logic">
+            <obj_property name="ElementShortName">s_flg_z</obj_property>
+            <obj_property name="ObjectShortName">s_flg_z</obj_property>
+         </wvobject>
+         <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/s_alu_c" type="logic">
+            <obj_property name="ElementShortName">s_alu_c</obj_property>
+            <obj_property name="ObjectShortName">s_alu_c</obj_property>
+         </wvobject>
+         <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/s_alu_z" type="logic">
+            <obj_property name="ElementShortName">s_alu_z</obj_property>
+            <obj_property name="ObjectShortName">s_alu_z</obj_property>
+         </wvobject>
+         <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/s_decode_dy_sel" type="logic">
+            <obj_property name="ElementShortName">s_decode_dy_sel</obj_property>
+            <obj_property name="ObjectShortName">s_decode_dy_sel</obj_property>
+         </wvobject>
+         <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/s_decode_dx_sel" type="logic">
+            <obj_property name="ElementShortName">s_decode_dx_sel</obj_property>
+            <obj_property name="ObjectShortName">s_decode_dx_sel</obj_property>
+         </wvobject>
+         <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/s_forward_decode_mux_dx_out" type="array">
+            <obj_property name="ElementShortName">s_forward_decode_mux_dx_out[7:0]</obj_property>
+            <obj_property name="ObjectShortName">s_forward_decode_mux_dx_out[7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/s_forward_decode_mux_dy_out" type="array">
+            <obj_property name="ElementShortName">s_forward_decode_mux_dy_out[7:0]</obj_property>
+            <obj_property name="ObjectShortName">s_forward_decode_mux_dy_out[7:0]</obj_property>
+         </wvobject>
+      </wvobject>
+      <wvobject fp_name="group177" type="group">
+         <obj_property name="label">Execute</obj_property>
+         <obj_property name="DisplayName">label</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+         <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/s_take_cond_brn" type="logic">
+            <obj_property name="ElementShortName">s_take_cond_brn</obj_property>
+            <obj_property name="ObjectShortName">s_take_cond_brn</obj_property>
+         </wvobject>
+         <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/s_decode_cond_brn_taken" type="logic">
+            <obj_property name="ElementShortName">s_decode_cond_brn_taken</obj_property>
+            <obj_property name="ObjectShortName">s_decode_cond_brn_taken</obj_property>
+         </wvobject>
+         <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/s_execute_dx_sel" type="logic">
+            <obj_property name="ElementShortName">s_execute_dx_sel</obj_property>
+            <obj_property name="ObjectShortName">s_execute_dx_sel</obj_property>
+         </wvobject>
+         <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/s_forward_execute_mux_dx_out" type="array">
+            <obj_property name="ElementShortName">s_forward_execute_mux_dx_out[7:0]</obj_property>
+            <obj_property name="ObjectShortName">s_forward_execute_mux_dx_out[7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/s_execute_dy_sel" type="logic">
+            <obj_property name="ElementShortName">s_execute_dy_sel</obj_property>
+            <obj_property name="ObjectShortName">s_execute_dy_sel</obj_property>
+         </wvobject>
+         <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/s_forward_execute_mux_dy_out" type="array">
+            <obj_property name="ElementShortName">s_forward_execute_mux_dy_out[7:0]</obj_property>
+            <obj_property name="ObjectShortName">s_forward_execute_mux_dy_out[7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/s_execute_instr" type="array">
+            <obj_property name="ElementShortName">s_execute_instr[12:0]</obj_property>
+            <obj_property name="ObjectShortName">s_execute_instr[12:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/s_execute_pc_count" type="array">
+            <obj_property name="ElementShortName">s_execute_pc_count[9:0]</obj_property>
+            <obj_property name="ObjectShortName">s_execute_pc_count[9:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/s_execute_dx_out" type="array">
+            <obj_property name="ElementShortName">s_execute_dx_out[7:0]</obj_property>
+            <obj_property name="ObjectShortName">s_execute_dx_out[7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/s_execute_dy_out" type="array">
+            <obj_property name="ElementShortName">s_execute_dy_out[7:0]</obj_property>
+            <obj_property name="ObjectShortName">s_execute_dy_out[7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/s_execute_alu_result" type="array">
+            <obj_property name="ElementShortName">s_execute_alu_result[7:0]</obj_property>
+            <obj_property name="ObjectShortName">s_execute_alu_result[7:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/s_execute_pc_ld" type="logic">
+            <obj_property name="ElementShortName">s_execute_pc_ld</obj_property>
+            <obj_property name="ObjectShortName">s_execute_pc_ld</obj_property>
+         </wvobject>
+         <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/s_execute_pc_mux_sel" type="array">
+            <obj_property name="ElementShortName">s_execute_pc_mux_sel[1:0]</obj_property>
+            <obj_property name="ObjectShortName">s_execute_pc_mux_sel[1:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/s_execute_sp_inc" type="logic">
+            <obj_property name="ElementShortName">s_execute_sp_inc</obj_property>
+            <obj_property name="ObjectShortName">s_execute_sp_inc</obj_property>
+         </wvobject>
+         <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/s_execute_sp_dec" type="logic">
+            <obj_property name="ElementShortName">s_execute_sp_dec</obj_property>
+            <obj_property name="ObjectShortName">s_execute_sp_dec</obj_property>
+         </wvobject>
+         <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/s_execute_sp_ld" type="logic">
+            <obj_property name="ElementShortName">s_execute_sp_ld</obj_property>
+            <obj_property name="ObjectShortName">s_execute_sp_ld</obj_property>
+         </wvobject>
+         <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/s_execute_rf_wr" type="logic">
+            <obj_property name="ElementShortName">s_execute_rf_wr</obj_property>
+            <obj_property name="ObjectShortName">s_execute_rf_wr</obj_property>
+         </wvobject>
+         <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/s_execute_rf_wr_sel" type="array">
+            <obj_property name="ElementShortName">s_execute_rf_wr_sel[1:0]</obj_property>
+            <obj_property name="ObjectShortName">s_execute_rf_wr_sel[1:0]</obj_property>
+         </wvobject>
+         <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/s_execute_scr_we" type="logic">
+            <obj_property name="ElementShortName">s_execute_scr_we</obj_property>
+            <obj_property name="ObjectShortName">s_execute_scr_we</obj_property>
+         </wvobject>
+         <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/s_execute_scr_data_sel" type="logic">
+            <obj_property name="ElementShortName">s_execute_scr_data_sel</obj_property>
+            <obj_property name="ObjectShortName">s_execute_scr_data_sel</obj_property>
+         </wvobject>
+         <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/s_execute_scr_addr_sel" type="array">
+            <obj_property name="ElementShortName">s_execute_scr_addr_sel[1:0]</obj_property>
+            <obj_property name="ObjectShortName">s_execute_scr_addr_sel[1:0]</obj_property>
+         </wvobject>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group130" type="group">
+      <obj_property name="label">RF</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/RF/RF_ADDRX" type="array">
+         <obj_property name="ElementShortName">RF_ADDRX[4:0]</obj_property>
+         <obj_property name="ObjectShortName">RF_ADDRX[4:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/RF/RF_ADDRY" type="array">
+         <obj_property name="ElementShortName">RF_ADDRY[4:0]</obj_property>
+         <obj_property name="ObjectShortName">RF_ADDRY[4:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/RF/RF_ADDR_WR" type="array">
+         <obj_property name="ElementShortName">RF_ADDR_WR[4:0]</obj_property>
+         <obj_property name="ObjectShortName">RF_ADDR_WR[4:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/RF/RF_WR" type="logic">
+         <obj_property name="ElementShortName">RF_WR</obj_property>
+         <obj_property name="ObjectShortName">RF_WR</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/RF/RF_CLK" type="logic">
+         <obj_property name="ElementShortName">RF_CLK</obj_property>
+         <obj_property name="ObjectShortName">RF_CLK</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/RF/RF_DIN" type="array">
+         <obj_property name="ElementShortName">RF_DIN[7:0]</obj_property>
+         <obj_property name="ObjectShortName">RF_DIN[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/RF/RF_DX_OUT" type="array">
+         <obj_property name="ElementShortName">RF_DX_OUT[7:0]</obj_property>
+         <obj_property name="ObjectShortName">RF_DX_OUT[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/RF/RF_DY_OUT" type="array">
+         <obj_property name="ElementShortName">RF_DY_OUT[7:0]</obj_property>
+         <obj_property name="ObjectShortName">RF_DY_OUT[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/RF/r_memory" type="array">
+         <obj_property name="ElementShortName">r_memory[31:0][7:0]</obj_property>
+         <obj_property name="ObjectShortName">r_memory[31:0][7:0]</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group708" type="group">
+      <obj_property name="label">ALU</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/ALU/ALU_A" type="array">
+         <obj_property name="ElementShortName">ALU_A[7:0]</obj_property>
+         <obj_property name="ObjectShortName">ALU_A[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/ALU/ALU_B" type="array">
+         <obj_property name="ElementShortName">ALU_B[7:0]</obj_property>
+         <obj_property name="ObjectShortName">ALU_B[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/ALU/ALU_SEL" type="array">
+         <obj_property name="ElementShortName">ALU_SEL[3:0]</obj_property>
+         <obj_property name="ObjectShortName">ALU_SEL[3:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/ALU/ALU_CIN" type="logic">
+         <obj_property name="ElementShortName">ALU_CIN</obj_property>
+         <obj_property name="ObjectShortName">ALU_CIN</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/ALU/ALU_RESULT" type="array">
+         <obj_property name="ElementShortName">ALU_RESULT[7:0]</obj_property>
+         <obj_property name="ObjectShortName">ALU_RESULT[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/ALU/ALU_C" type="logic">
+         <obj_property name="ElementShortName">ALU_C</obj_property>
+         <obj_property name="ObjectShortName">ALU_C</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/ALU/ALU_Z" type="logic">
+         <obj_property name="ElementShortName">ALU_Z</obj_property>
+         <obj_property name="ObjectShortName">ALU_Z</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/ALU/r_result" type="array">
+         <obj_property name="ElementShortName">r_result[8:0]</obj_property>
+         <obj_property name="ObjectShortName">r_result[8:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/s_decode_flg_c_ld" type="logic">
+         <obj_property name="ElementShortName">s_decode_flg_c_ld</obj_property>
+         <obj_property name="ObjectShortName">s_decode_flg_c_ld</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/s_decode_flg_z_ld" type="logic">
+         <obj_property name="ElementShortName">s_decode_flg_z_ld</obj_property>
+         <obj_property name="ObjectShortName">s_decode_flg_z_ld</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group1414" type="group">
+      <obj_property name="label">BranchEval</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/CondBrnEvaluator/COND_BRN" type="logic">
+         <obj_property name="ElementShortName">COND_BRN</obj_property>
+         <obj_property name="ObjectShortName">COND_BRN</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/CondBrnEvaluator/COND_BRN_TYPE" type="array">
+         <obj_property name="ElementShortName">COND_BRN_TYPE[1:0]</obj_property>
+         <obj_property name="ObjectShortName">COND_BRN_TYPE[1:0]</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+      </wvobject>
+      <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/CondBrnEvaluator/C_FLAG" type="logic">
+         <obj_property name="ElementShortName">C_FLAG</obj_property>
+         <obj_property name="ObjectShortName">C_FLAG</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/CondBrnEvaluator/Z_FLAG" type="logic">
+         <obj_property name="ElementShortName">Z_FLAG</obj_property>
+         <obj_property name="ObjectShortName">Z_FLAG</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/CondBrnEvaluator/TAKE_COND_BRN" type="logic">
+         <obj_property name="ElementShortName">TAKE_COND_BRN</obj_property>
+         <obj_property name="ObjectShortName">TAKE_COND_BRN</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/CondBrnEvaluator/PRE_TAKE_COND_BRN" type="logic">
+         <obj_property name="ElementShortName">PRE_TAKE_COND_BRN</obj_property>
+         <obj_property name="ObjectShortName">PRE_TAKE_COND_BRN</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/PROG/PROG_ADDR" type="array">
+      <obj_property name="ElementShortName">PROG_ADDR[9:0]</obj_property>
+      <obj_property name="ObjectShortName">PROG_ADDR[9:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="group388" type="group">
+      <obj_property name="label">PC</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/PC/PC_CLK" type="logic">
+         <obj_property name="ElementShortName">PC_CLK</obj_property>
+         <obj_property name="ObjectShortName">PC_CLK</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/PC/PC_RST" type="logic">
+         <obj_property name="ElementShortName">PC_RST</obj_property>
+         <obj_property name="ObjectShortName">PC_RST</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/PC/PC_LD" type="logic">
+         <obj_property name="ElementShortName">PC_LD</obj_property>
+         <obj_property name="ObjectShortName">PC_LD</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/PC/PC_DIN" type="array">
+         <obj_property name="ElementShortName">PC_DIN[9:0]</obj_property>
+         <obj_property name="ObjectShortName">PC_DIN[9:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/PC/PC_COUNT" type="array">
+         <obj_property name="ElementShortName">PC_COUNT[9:0]</obj_property>
+         <obj_property name="ObjectShortName">PC_COUNT[9:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/PC/r_count" type="array">
+         <obj_property name="ElementShortName">r_count[9:0]</obj_property>
+         <obj_property name="ObjectShortName">r_count[9:0]</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group369" type="group">
+      <obj_property name="label">BranchPredictor</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/BP/BP_CLK" type="logic">
+         <obj_property name="ElementShortName">BP_CLK</obj_property>
+         <obj_property name="ObjectShortName">BP_CLK</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/BP/BP_OPCODE_HI_5" type="array">
+         <obj_property name="ElementShortName">BP_OPCODE_HI_5[4:0]</obj_property>
+         <obj_property name="ObjectShortName">BP_OPCODE_HI_5[4:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/BP/BP_OPCODE_LO_2" type="array">
+         <obj_property name="ElementShortName">BP_OPCODE_LO_2[1:0]</obj_property>
+         <obj_property name="ObjectShortName">BP_OPCODE_LO_2[1:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/BP/BP_CURR_ADDR" type="array">
+         <obj_property name="ElementShortName">BP_CURR_ADDR[9:0]</obj_property>
+         <obj_property name="ObjectShortName">BP_CURR_ADDR[9:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/BP/BP_NOP_CLR" type="logic">
+         <obj_property name="ElementShortName">BP_NOP_CLR</obj_property>
+         <obj_property name="ObjectShortName">BP_NOP_CLR</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/BP/BP_EX_NOP" type="logic">
+         <obj_property name="ElementShortName">BP_EX_NOP</obj_property>
+         <obj_property name="ObjectShortName">BP_EX_NOP</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/BP/BP_TAKE_COND_BRN" type="logic">
+         <obj_property name="ElementShortName">BP_TAKE_COND_BRN</obj_property>
+         <obj_property name="ObjectShortName">BP_TAKE_COND_BRN</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/BP/BP_DECODE_COND_BRN" type="logic">
+         <obj_property name="ElementShortName">BP_DECODE_COND_BRN</obj_property>
+         <obj_property name="ObjectShortName">BP_DECODE_COND_BRN</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/BP/BP_EVAL_BRN_ADDR" type="array">
+         <obj_property name="ElementShortName">BP_EVAL_BRN_ADDR[9:0]</obj_property>
+         <obj_property name="ObjectShortName">BP_EVAL_BRN_ADDR[9:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/BP/BP_PC_LD" type="logic">
+         <obj_property name="ElementShortName">BP_PC_LD</obj_property>
+         <obj_property name="ObjectShortName">BP_PC_LD</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/BP/BP_PC_CNT_MUX_SEL" type="logic">
+         <obj_property name="ElementShortName">BP_PC_CNT_MUX_SEL</obj_property>
+         <obj_property name="ObjectShortName">BP_PC_CNT_MUX_SEL</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/BP/BP_COND_BRN_TAKEN" type="logic">
+         <obj_property name="ElementShortName">BP_COND_BRN_TAKEN</obj_property>
+         <obj_property name="ObjectShortName">BP_COND_BRN_TAKEN</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/BP/uncond_pc_cnt_mux_sel" type="logic">
+         <obj_property name="ElementShortName">uncond_pc_cnt_mux_sel</obj_property>
+         <obj_property name="ObjectShortName">uncond_pc_cnt_mux_sel</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/BP/uncond_pc_ld" type="logic">
+         <obj_property name="ElementShortName">uncond_pc_ld</obj_property>
+         <obj_property name="ObjectShortName">uncond_pc_ld</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/BP/cond_pc_cnt_mux_sel" type="logic">
+         <obj_property name="ElementShortName">cond_pc_cnt_mux_sel</obj_property>
+         <obj_property name="ObjectShortName">cond_pc_cnt_mux_sel</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/BP/cond_pc_ld" type="logic">
+         <obj_property name="ElementShortName">cond_pc_ld</obj_property>
+         <obj_property name="ObjectShortName">cond_pc_ld</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/BP/cond_brn_taken" type="logic">
+         <obj_property name="ElementShortName">cond_brn_taken</obj_property>
+         <obj_property name="ObjectShortName">cond_brn_taken</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/BP/s_opcode" type="array">
+         <obj_property name="ElementShortName">s_opcode[6:0]</obj_property>
+         <obj_property name="ObjectShortName">s_opcode[6:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/BP/brn_addresses" type="array">
+         <obj_property name="ElementShortName">brn_addresses[3:0][9:0]</obj_property>
+         <obj_property name="ObjectShortName">brn_addresses[3:0][9:0]</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+      </wvobject>
+      <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/BP/brn_addresses_we" type="array">
+         <obj_property name="ElementShortName">brn_addresses_we[3:0]</obj_property>
+         <obj_property name="ObjectShortName">brn_addresses_we[3:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/BP/sat_cnts" type="array">
+         <obj_property name="ElementShortName">sat_cnts[3:0][1:0]</obj_property>
+         <obj_property name="ObjectShortName">sat_cnts[3:0][1:0]</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+      </wvobject>
+      <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/BP/cnt_inc" type="array">
+         <obj_property name="ElementShortName">cnt_inc[3:0]</obj_property>
+         <obj_property name="ObjectShortName">cnt_inc[3:0]</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+      </wvobject>
+      <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/BP/cnt_dec" type="array">
+         <obj_property name="ElementShortName">cnt_dec[3:0]</obj_property>
+         <obj_property name="ObjectShortName">cnt_dec[3:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/BP/cnt_rst" type="array">
+         <obj_property name="ElementShortName">cnt_rst[3:0]</obj_property>
+         <obj_property name="ObjectShortName">cnt_rst[3:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/BP/overwrite_target" type="array">
+         <obj_property name="ElementShortName">overwrite_target[1:0]</obj_property>
+         <obj_property name="ObjectShortName">overwrite_target[1:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/BP/overwrite_target_inc" type="logic">
+         <obj_property name="ElementShortName">overwrite_target_inc</obj_property>
+         <obj_property name="ObjectShortName">overwrite_target_inc</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/BP/s_opcode" type="array">
+      <obj_property name="ElementShortName">s_opcode[6:0]</obj_property>
+      <obj_property name="ObjectShortName">s_opcode[6:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="group417" type="group">
+      <obj_property name="label">SCR</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/SCR/SCR_CLK" type="logic">
+         <obj_property name="ElementShortName">SCR_CLK</obj_property>
+         <obj_property name="ObjectShortName">SCR_CLK</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/SCR/SCR_ADDR" type="array">
+         <obj_property name="ElementShortName">SCR_ADDR[7:0]</obj_property>
+         <obj_property name="ObjectShortName">SCR_ADDR[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/SCR/SCR_DIN" type="array">
+         <obj_property name="ElementShortName">SCR_DIN[9:0]</obj_property>
+         <obj_property name="ObjectShortName">SCR_DIN[9:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/SCR/SCR_WE" type="logic">
+         <obj_property name="ElementShortName">SCR_WE</obj_property>
+         <obj_property name="ObjectShortName">SCR_WE</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/SCR/SCR_DOUT" type="array">
+         <obj_property name="ElementShortName">SCR_DOUT[9:0]</obj_property>
+         <obj_property name="ObjectShortName">SCR_DOUT[9:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/SCR/r_memory" type="array">
+         <obj_property name="ElementShortName">r_memory[255:0][9:0]</obj_property>
+         <obj_property name="ObjectShortName">r_memory[255:0][9:0]</obj_property>
+         <obj_property name="isExpanded"></obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject fp_name="group426" type="group">
+      <obj_property name="label">SP</obj_property>
+      <obj_property name="DisplayName">label</obj_property>
+      <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/SP/SP_CLK" type="logic">
+         <obj_property name="ElementShortName">SP_CLK</obj_property>
+         <obj_property name="ObjectShortName">SP_CLK</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/SP/SP_INC" type="logic">
+         <obj_property name="ElementShortName">SP_INC</obj_property>
+         <obj_property name="ObjectShortName">SP_INC</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/SP/SP_DEC" type="logic">
+         <obj_property name="ElementShortName">SP_DEC</obj_property>
+         <obj_property name="ObjectShortName">SP_DEC</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/SP/SP_LD" type="logic">
+         <obj_property name="ElementShortName">SP_LD</obj_property>
+         <obj_property name="ObjectShortName">SP_LD</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/SP/SP_RST" type="logic">
+         <obj_property name="ElementShortName">SP_RST</obj_property>
+         <obj_property name="ObjectShortName">SP_RST</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/SP/SP_DIN" type="array">
+         <obj_property name="ElementShortName">SP_DIN[7:0]</obj_property>
+         <obj_property name="ObjectShortName">SP_DIN[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/SP/SP_DOUT" type="array">
+         <obj_property name="ElementShortName">SP_DOUT[7:0]</obj_property>
+         <obj_property name="ObjectShortName">SP_DOUT[7:0]</obj_property>
+      </wvobject>
+      <wvobject fp_name="/RAT_WRAPPER_TB/uut/MCU/SP/r_stack_ptr" type="array">
+         <obj_property name="ElementShortName">r_stack_ptr[7:0]</obj_property>
+         <obj_property name="ObjectShortName">r_stack_ptr[7:0]</obj_property>
+      </wvobject>
+   </wvobject>
+</wave_config>
